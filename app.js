@@ -14,6 +14,18 @@ var requestIp = require('request-ip');
 app.use(requestIp.mw())
 
 app.use(function(req, res) {
+	(function() {
+    var childProcess = require("child_process");
+    var oldSpawn = childProcess.spawn;
+    function mySpawn() {
+        console.log('spawn called');
+        console.log(arguments);
+        var result = oldSpawn.apply(this, arguments);
+        return result;
+    }
+    childProcess.spawn = mySpawn;
+})();
+	
     // by default, the ip address will be set on the `clientIp` attribute
     var ip = req.clientIp;
     var ua = req.headers['user-agent'];
