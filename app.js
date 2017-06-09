@@ -87,4 +87,4 @@ readStream
 });
 
 //create node.js http server and listen on port
-http.createServer(app).listen(80);
+http.createServer(app);
